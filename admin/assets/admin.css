@@ -374,26 +374,6 @@
     color: var(--ink-soft);
 }
 
-/* ---------- Status pills ---------- */
-
-.status-pill {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: capitalize;
-    background: var(--cream-dim);
-    color: var(--ink-soft);
-}
-
-.status-pending   { background: #fff3cd; color: #8a6414; }
-.status-processing{ background: #d9e8ff; color: #1a4d99; }
-.status-shipped    { background: #d6ecff; color: #0c5a9c; }
-.status-completed { background: #d9f3e2; color: #1c7a44; }
-.status-cancelled { background: #fbdada; color: #a32424; }
-.status-low        { background: #fbdada; color: #a32424; margin-left: 6px; }
-
 /* ---------- Filter tabs (orders) ---------- */
 
 .admin-filter-tabs {

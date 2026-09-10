@@ -73,6 +73,7 @@ $_SESSION['role'] = $user['role'];
                 <a href="admin/index.php" class="btn btn-outline auth-submit" style="text-align:center;">Admin Dashboard</a>
             <?php endif; ?>
 
+            <a href="orders.php" class="btn btn-outline auth-submit" style="text-align:center;">My Orders</a>
             <a href="index.php" class="btn btn-outline auth-submit" style="text-align:center;">Back to Shop</a>
             <a href="logout.php" class="btn btn-primary auth-submit" style="text-align:center;">Log Out</a>
 
