@@ -131,6 +131,11 @@ function renderProducts(list = PRODUCT_DATA) {
 }
 
 
+// Special Collections now live in the database (see database/empenado_db.sql,
+// table `collections`) and are fetched from get-collections.php. This array
+// starts empty and is filled in by loadCollections() below; everything that
+// reads it (renderCollections, findProductById, search, cart) keeps working
+// the same way once the data arrives.
 let COLLECTION_DATA = [];
 
 async function loadCollections() {
