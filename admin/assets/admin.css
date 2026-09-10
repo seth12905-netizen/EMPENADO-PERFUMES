@@ -1,0 +1,491 @@
+/* =========================================================
+   ADMIN DASHBOARD
+   Reuses the brand's CSS variables (--navy, --gold, --cream,
+   etc.) already defined in css/style.css, which is loaded
+   before this file on every admin page.
+========================================================= */
+
+.admin-body {
+    background: var(--cream);
+    font-family: var(--font-body);
+    color: var(--ink);
+}
+
+.admin-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+
+.admin-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: var(--sp-3) var(--sp-2);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.admin-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    text-decoration: none;
+    margin-bottom: var(--sp-4);
+    padding: 0 var(--sp-1);
+}
+
+.admin-logo .logo-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+}
+
+.admin-logo .logo-text span {
+    color: var(--gold);
+}
+
+.admin-logo .logo-subtext {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.admin-tag {
+    display: inline-block;
+    align-self: flex-start;
+    margin: 2px 0 var(--sp-3);
+    padding: 3px 12px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy-deep);
+    background: var(--gold);
+    border-radius: 999px;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.admin-nav a {
+    color: var(--gold-soft);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-nav a:hover {
+    background: var(--navy-light);
+    color: var(--white);
+}
+
+.admin-nav a.is-active {
+    background: var(--gold);
+    color: var(--navy-deep);
+    font-weight: 600;
+}
+
+.admin-sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid var(--navy-light);
+    padding-top: var(--sp-2);
+}
+
+.admin-link-muted {
+    color: var(--gold-soft);
+    opacity: 0.8;
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 6px 14px;
+}
+
+.admin-link-muted:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* ---------- Main area ---------- */
+
+.admin-main {
+    flex: 1;
+    padding: var(--sp-4) var(--sp-5);
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.admin-topbar {
+    /* css/style.css has a global `header { position: fixed; ... }` rule
+       meant for the site's navbar. Since this is also a <header> tag,
+       it inherited that fixed positioning and got pulled out of the
+       page flow. These reset it back to normal in-flow behavior. */
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--sp-3);
+    flex-wrap: wrap;
+    gap: var(--sp-1);
+}
+
+.admin-topbar h1 {
+    font-family: var(--font-display);
+    color: var(--navy);
+    font-size: 1.8rem;
+}
+
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+}
+
+/* ---------- Stat cards ---------- */
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--sp-2);
+}
+
+.stat-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-card-warning {
+    border: 1px solid var(--gold);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--navy);
+}
+
+/* ---------- Panels ---------- */
+
+.admin-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--sp-3);
+    align-items: start;
+}
+
+.admin-panel {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: var(--sp-3);
+    box-shadow: var(--shadow-soft);
+}
+
+.admin-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--sp-1);
+    margin-bottom: var(--sp-2);
+}
+
+.admin-panel-head h2 {
+    font-family: var(--font-display);
+    color: var(--navy);
+    font-size: 1.2rem;
+}
+
+.admin-link {
+    color: var(--gold-deep);
+    font-size: 0.85rem;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+}
+
+.admin-link:hover {
+    text-decoration: underline;
+}
+
+.admin-link-danger {
+    color: #b3261e;
+}
+
+.admin-empty {
+    color: var(--ink-soft);
+    font-style: italic;
+    padding: var(--sp-2) 0;
+}
+
+.admin-muted {
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+}
+
+/* ---------- Forms ---------- */
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+}
+
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-2);
+}
+
+.admin-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.admin-form-section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold-deep);
+    font-weight: 600;
+    margin-top: var(--sp-1);
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    border: 1px solid var(--cream-dim);
+    border-radius: var(--radius-sm);
+    background: var(--cream);
+    color: var(--ink);
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+}
+
+.admin-form .btn {
+    align-self: flex-start;
+}
+
+.admin-inline-form {
+    display: inline-block;
+}
+
+.admin-inline-form select {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--cream-dim);
+    background: var(--cream);
+}
+
+/* ---------- Tables ---------- */
+
+.admin-table-wrap {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--cream-dim);
+    vertical-align: middle;
+}
+
+.admin-table th {
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-thumb {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+.admin-row-actions {
+    display: flex;
+    gap: var(--sp-2);
+    align-items: center;
+}
+
+.admin-row-actions form {
+    display: inline;
+}
+
+.admin-order-items {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- Status pills ---------- */
+
+.status-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: var(--cream-dim);
+    color: var(--ink-soft);
+}
+
+.status-pending   { background: #fff3cd; color: #8a6414; }
+.status-processing{ background: #d9e8ff; color: #1a4d99; }
+.status-shipped    { background: #d6ecff; color: #0c5a9c; }
+.status-completed { background: #d9f3e2; color: #1c7a44; }
+.status-cancelled { background: #fbdada; color: #a32424; }
+.status-low        { background: #fbdada; color: #a32424; margin-left: 6px; }
+
+/* ---------- Filter tabs (orders) ---------- */
+
+.admin-filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.admin-filter-tabs a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--cream);
+}
+
+.admin-filter-tabs a.is-active {
+    background: var(--navy);
+    color: var(--white);
+}
+
+/* ---------- Messages ---------- */
+
+.admin-message-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+}
+
+.admin-message-list li {
+    border-bottom: 1px solid var(--cream-dim);
+    padding-bottom: var(--sp-2);
+}
+
+.admin-message-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.admin-message-list li.is-unread {
+    border-left: 3px solid var(--gold);
+    padding-left: var(--sp-1);
+}
+
+.admin-message-meta {
+    display: flex;
+    gap: var(--sp-1);
+    align-items: baseline;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+}
+
+.admin-message-meta strong {
+    color: var(--ink);
+}
+
+.admin-message-list-full li p {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+    .admin-shell {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .admin-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .admin-sidebar-footer {
+        flex-direction: row;
+        border-top: none;
+    }
+
+    .admin-main {
+        padding: var(--sp-3);
+    }
+}

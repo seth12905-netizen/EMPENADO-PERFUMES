@@ -1,0 +1,668 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+$displayName = $_SESSION['username'] ?? null;
+
+$contactStatus  = $_GET['status'] ?? null;
+$contactMessage = $_GET['message'] ?? null;
+?>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EMPENADO — Scent That Defines You</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- Header -->
+<header id="siteHeader">
+
+    <div class="container nav-wrap">
+
+        <a class="logo" aria-label="EMPENADO home">
+
+            <img src="images/logo.png" alt="EMPENADO logo" class="logo-mark">
+
+            <div class="logo-name">
+                <span class="logo-text">EMPEN<span>A</span>DO</span>
+                <span class="logo-subtext">PERFUMES</span>
+            </div>
+
+        </a>
+
+        <nav>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </nav>
+
+        <div class="nav-actions">
+
+            <a class="icon-btn" id="searchToggle" aria-label="Search products">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="M21 21l-4.3-4.3"/>
+                </svg>
+            </a>
+
+            <a class="icon-btn cart-btn" id="cartToggle" aria-label="Cart, 0 items">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L22 8H6"/>
+                    <circle cx="10" cy="21" r="1.4"/>
+                    <circle cx="18" cy="21" r="1.4"/>
+                </svg>
+                <span class="cart-badge" id="cartBadge" hidden>0</span>
+            </a>
+
+            <?php if ($isLoggedIn): ?>
+                <a href="account.php" class="icon-btn" aria-label="My account">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+                    </svg>
+                </a>
+            <?php else: ?>
+                <a href="login.php" class="icon-btn" aria-label="Log in">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+                    </svg>
+                </a>
+            <?php endif; ?>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M4 7h16M4 12h16M4 17h16"/>
+                </svg>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+
+    <div class="container hero-grid">
+
+        <div class="hero-copy">
+
+            <span class="eyebrow">The Empenado Signature</span>
+
+            <h1>
+                Scent that
+                <br>
+                <em>defines</em> you
+            </h1>
+
+            <p>
+                Hand blended fragrances crafted with rare ingredients, poured into
+                bottles built to last a lifetime. Every note is chosen with intention
+                nothing borrowed, nothing generic.
+            </p>
+
+            <div class="hero-ctas">
+                <a href="#shop" class="btn btn-primary">Shop Now</a>
+                <a href="#collections" class="btn btn-outline">Explore Collection</a>
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <svg class="diffusion" viewBox="0 0 520 520" aria-hidden="true">
+                <circle cx="260" cy="220" r="40"/>
+                <circle cx="260" cy="220" r="40"/>
+                <circle cx="260" cy="220" r="40"/>
+                <circle cx="260" cy="220" r="40"/>
+            </svg>
+
+            <img src="images/hero.png" alt="Empenado model wearing the fragrance" class="hero-photo">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Shop Section -->
+<section class="section on-cream" id="shop">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <span class="eyebrow">Fragrance Library</span>
+
+            <h2>Find your signature note</h2>
+
+            <p>
+                Six fragrance families, each bottled in small batches.
+                Filter by mood, wear it as your own.
+            </p>
+
+        </div>
+
+
+        <div class="product-grid" id="productGrid">
+
+            <!-- Product cards are generated by JavaScript below (see PRODUCT_DATA)
+                 to keep this HTML short and the data easy to edit in one place. -->
+
+        </div>
+
+        <p class="no-results" id="noResults" hidden>
+            No perfumes match your search. Try a different name, note, or category.
+        </p>
+
+
+    </div>
+
+</section>
+
+
+<!-- Collections Section -->
+<section class="section on-navy" id="collections">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <span class="eyebrow" style="color:var(--gold-soft)">
+                Curated Sets
+            </span>
+
+            <h2 style="color:var(--white)">
+                Special Collections
+            </h2>
+
+            <p style="color:rgba(255,255,255,0.55)">
+                Four ways to wear Empenado from an everyday signature
+                to a once a season indulgence.
+            </p>
+
+        </div>
+
+
+        <div class="collections-grid" id="collectionsGrid">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- About Section -->
+<section class="section on-cream" id="about">
+
+    <div class="container about-grid">
+
+        <div class="about-visual">
+
+            <div class="ring" aria-hidden="true"></div>
+
+            <img src="images/about.png" alt="Inside the Empenado atelier" class="about-photo">
+
+        </div>
+
+
+        <div class="about-copy">
+
+            <span class="eyebrow">Our Story</span>
+
+            <h2 style="margin-top:12px;">
+                Crafted in small batches, worn as a signature
+            </h2>
+
+            <p class="quote">
+                "A fragrance is more than a scent. It is a memory,
+                an expression, and a signature."
+            </p>
+
+            <p>
+                Empenado began with a simple belief perfume should feel personal,
+                not mass produced. Every bottle is blended by hand in limited runs,
+                using rare absolutes and precision dosing that machines can't replicate.
+            </p>
+
+            <p>
+                Our mission is to make luxury fragrance honest clear ingredients,
+                no shortcuts, no filler notes. Our vision is a wardrobe of scent
+                as considered as the clothes you choose to wear.
+            </p>
+
+
+            <div class="about-stats">
+
+                <div>
+                    <strong>12+</strong>
+                    <span>Years Crafting</span>
+                </div>
+
+                <div>
+                    <strong>40</strong>
+                    <span>Rare Ingredients</span>
+                </div>
+
+                <div>
+                    <strong>25k</strong>
+                    <span>Bottles Poured</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Testimonials Section -->
+<section class="section on-navy">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <span class="eyebrow" style="color:var(--gold-soft)">
+                Testimonials
+            </span>
+
+            <h2 style="color:var(--white)">
+                What wearers are saying
+            </h2>
+
+        </div>
+
+
+        <div class="reviews-grid" id="reviewsGrid">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Contact Section -->
+<section class="section on-navy" id="contact" style="padding-top:0;">
+
+    <div class="container">
+
+        <div class="section-head" style="margin-bottom:0;">
+
+            <span class="eyebrow" style="color:var(--gold-soft)">
+                Get In Touch
+            </span>
+
+            <h2 style="color:var(--white)">
+                Visit or write to us
+            </h2>
+
+        </div>
+
+
+        <div class="contact-wrap">
+
+            <div class="contact-info">
+
+                <div class="contact-info-list">
+
+                    <div class="contact-info-item">
+
+                        <span class="ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <path d="M4 4h16v16H4z" opacity="0"/>
+                                <path d="M3 6l9 7 9-7"/>
+                                <path d="M3 6h18v12H3z"/>
+                            </svg>
+                        </span>
+
+                        <div>
+                            <h4>Email</h4>
+                            <p>empenadoperfumes.@gmail.com</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <span class="ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2z"/>
+                            </svg>
+                        </span>
+
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+63 098 754 1309</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <span class="ic">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </span>
+
+                        <div>
+                            <h4>Boutique</h4>
+                            <p>Dumaguete City, Negros Oriental, Philippines</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="social-row" aria-label="Social media">
+
+                    <a aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <rect x="3" y="3" width="18" height="18" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.5" cy="6.5" r="1"/>
+                        </svg>
+                    </a>
+
+                    <a aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <form class="contact-form" id="contactForm" method="POST" action="contact-function.php">
+
+                <input type="text" name="name" placeholder="Your name" required>
+
+                <input type="email" name="email" placeholder="Your email" required>
+
+                <textarea name="message" placeholder="Your message" required></textarea>
+
+                <button type="submit" name="contact_submit" class="btn btn-primary" style="align-self:flex-start;">
+                    Send Message
+                </button>
+
+                <p class="form-note<?= $contactStatus === 'error' ? ' form-alert-error' : '' ?>" id="formNote">
+                    <?= $contactMessage ? htmlspecialchars($contactMessage) : '' ?>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <a class="logo">
+
+                    <img src="images/logo.png" alt="EMPENADO logo" class="logo-mark">
+
+                    <div class="logo-name">
+
+                        <span class="logo-text">EMPEN<span>A</span>DO</span>
+
+                        <span class="logo-subtext">PERFUMES</span>
+
+                    </div>
+
+                </a>
+
+
+                <p>
+                    Independent fragrance house. Small batches,
+                    honest ingredients, one bottle at a time.
+                </p>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>Quick Links</h5>
+
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>Shop</h5>
+
+                <ul>
+                    <li><a href="#shop">Floral</a></li>
+                    <li><a href="#shop">Woody</a></li>
+                    <li><a href="#shop">Fresh</a></li>
+                    <li><a href="#shop">Oriental</a></li>
+                </ul>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>Customer Service</h5>
+
+                <ul>
+                    <li><a>Shipping</a></li>
+                    <li><a>Returns</a></li>
+                    <li><a>FAQ</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                &copy; <span id="year"></span> Empenado. All rights reserved.
+            </p>
+
+
+            <div class="social-row">
+
+                <a aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <rect x="3" y="3" width="18" height="18" rx="5"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <circle cx="17.5" cy="6.5" r="1"/>
+                    </svg>
+                </a>
+
+                <a aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                </a>
+
+    z        </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- Search Popup -->
+<div class="search-modal" id="searchModal" aria-hidden="true">
+
+    <div class="search-modal-backdrop" id="searchModalBackdrop"></div>
+
+    <div class="search-modal-panel" role="dialog" aria-modal="true" aria-label="Search products">
+
+        <div class="search-modal-bar">
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="search-modal-icon">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M21 21l-4.3-4.3"/>
+            </svg>
+
+            <input
+                type="text"
+                id="popupSearchInput"
+                placeholder="Search perfumes, notes, or families..."
+                autocomplete="off"
+            >
+
+            <button type="button" id="searchModalClose" class="search-modal-close" aria-label="Close search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+
+        </div>
+
+        <div class="search-modal-results" id="searchModalResults">
+            <p class="search-modal-hint">Start typing to search our collection.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-modal" id="cartModal" aria-hidden="true">
+
+    <div class="cart-modal-backdrop" id="cartModalBackdrop"></div>
+
+    <div class="cart-modal-panel" role="dialog" aria-modal="true" aria-label="Shopping cart">
+
+        <div class="cart-modal-header">
+            <h3>Your Cart</h3>
+            <button type="button" id="cartModalClose" class="search-modal-close" aria-label="Close cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-modal-items" id="cartItems">
+            <p class="cart-empty">Your cart is empty.</p>
+        </div>
+
+        <div class="cart-modal-footer">
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span id="cartTotal">₱0</span>
+            </div>
+            <button type="button" class="btn btn-primary" id="cartCheckout" style="width:100%;">
+                Checkout
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Product Details Modal -->
+<div class="details-modal" id="detailsModal" aria-hidden="true">
+
+    <div class="details-modal-backdrop" id="detailsModalBackdrop"></div>
+
+    <div class="details-modal-panel" role="dialog" aria-modal="true" aria-label="Product details">
+
+        <button type="button" id="detailsModalClose" class="search-modal-close" aria-label="Close product details">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+        </button>
+
+        <div class="details-modal-body" id="detailsModalBody">
+            <!-- Filled by JS -->
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<!-- Auth Required Modal (shown when a guest tries to Add to Cart) -->
+<div class="search-modal" id="authModal" aria-hidden="true">
+
+    <div class="search-modal-backdrop" id="authModalBackdrop"></div>
+
+    <div class="search-modal-panel" role="dialog" aria-modal="true" aria-label="Log in required">
+
+        <button type="button" id="authModalClose" class="search-modal-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+        </button>
+
+        <div class="auth-modal-body">
+            <h3>Please log in to continue</h3>
+            <p>You need an account to add items to your cart. Log in if you already have one, or register to create a new account.</p>
+            <div class="auth-modal-actions">
+                <a href="login.php" class="btn btn-primary">Log In</a>
+                <a href="register.php" class="btn btn-outline">Register</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // Login state from the server session, used by script.js to gate "Add to Cart"
+    window.IS_LOGGED_IN = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+</script>
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
