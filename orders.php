@@ -52,8 +52,11 @@ try {
         <div class="auth-card orders-card">
 
             <a href="index.php" class="auth-logo">
-                <span class="logo-text">EMPEN<span>A</span>DO</span>
-                <span class="logo-subtext">PERFUMES</span>
+                <img src="images/logo.png" alt="EMPENADO logo" class="logo-mark">
+                    <span class="auth-logo-text-col">
+                    <span class="logo-text">EMPEN<span>A</span>DO</span>
+                    <span class="logo-subtext">PERFUMES</span>
+                </span>
             </a>
 
             <h1 class="auth-title">My Orders</h1>
