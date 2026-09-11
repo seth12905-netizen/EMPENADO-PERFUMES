@@ -27,12 +27,12 @@ $flashMessage = $_GET['message'] ?? null;
         <aside class="admin-sidebar">
 
             <a href="index.php" class="admin-logo">
-    <div class="admin-logo-row">
-        <img src="../images/logo.png" alt="EMPENADO" class="admin-logo-mark">
-        <span class="logo-text">EMPEN<span>A</span>DO</span>
-    </div>
-    <span class="logo-subtext">PERFUMES</span>
-</a>
+                <img src="../images/logo.png" alt="EMPENADO" class="admin-logo-mark">
+                    <div class="admin-logo-text-col">
+                        <span class="logo-text">EMPEN<span>A</span>DO</span>
+                        <span class="logo-subtext">PERFUMES</span>
+                    </div>
+            </a>
 
             <span class="admin-tag">Admin</span>
 

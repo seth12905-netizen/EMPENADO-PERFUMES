@@ -33,20 +33,23 @@
 
 .admin-logo {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 10px;
     text-decoration: none;
     margin-bottom: var(--sp-4);
 }
 
-.admin-logo {
+.admin-logo-text-col {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    text-decoration: none;
-    margin-bottom: var(--sp-4);
+}
+
+.admin-logo-mark {
+    width: 32px;
+    height: 32px;
+    display: block;
+    object-fit: contain;
 }
 
 .admin-logo-row {
@@ -76,7 +79,7 @@
 .admin-logo .logo-subtext {
     font-size: 10px;
     letter-spacing: 3px;
-    color: var(--gold-soft);
+    color: var(--white-soft);
     text-transform: uppercase;
     margin-top: 2px;
 }
