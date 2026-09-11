@@ -636,7 +636,7 @@ $contactMessage = $_GET['message'] ?? null;
 
     <div class="search-modal-backdrop" id="authModalBackdrop"></div>
 
-    <div class="search-modal-panel" role="dialog" aria-modal="true" aria-label="Log in required">
+    <<div class="search-modal-panel auth-modal-panel" role="dialog" aria-modal="true" aria-label="Log in required">
 
         <button type="button" id="authModalClose" class="search-modal-close" aria-label="Close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -645,6 +645,12 @@ $contactMessage = $_GET['message'] ?? null;
         </button>
 
         <div class="auth-modal-body">
+            <div class="auth-modal-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                </svg>
+            </div>
             <h3>Please log in to continue</h3>
             <p>You need an account to add items to your cart. Log in if you already have one, or register to create a new account.</p>
             <div class="auth-modal-actions">

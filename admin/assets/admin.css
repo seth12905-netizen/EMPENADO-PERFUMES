@@ -423,13 +423,17 @@
 }
 
 .admin-row-actions {
-    display: flex;
-    gap: var(--sp-2);
-    align-items: center;
+    white-space: nowrap;
+}
+
+.admin-row-actions a,
+.admin-row-actions form {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .admin-row-actions form {
-    display: inline;
+    margin-left: var(--sp-2);
 }
 
 .admin-order-items {
