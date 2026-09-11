@@ -85,14 +85,22 @@
     display: inline-block;
     align-self: flex-start;
     margin: 2px 0 var(--sp-3);
-    padding: 3px 12px;
+    padding: 4px 12px;
     font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--navy-deep);
-    background: var(--gold);
-    border-radius: 999px;
+    color: var(--gold);
+    background: rgba(200, 152, 60, 0.12);
+    border: none;
+    border-radius: 6px;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
 }
 
 .admin-nav {
@@ -103,23 +111,29 @@
 }
 
 .admin-nav a {
-    color: var(--gold-soft);
+    display: flex;
+    align-items: center;
+    color: var(--cream-dim);
     text-decoration: none;
     padding: 10px 14px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: 0.9rem;
-    transition: background 0.15s ease, color 0.15s ease;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .admin-nav a:hover {
-    background: var(--navy-light);
+    background: rgba(200, 152, 60, 0.08);
     color: var(--white);
 }
 
 .admin-nav a.is-active {
-    background: var(--gold);
-    color: var(--navy-deep);
+    background: rgba(200, 152, 60, 0.14);
+    color: var(--gold);
     font-weight: 600;
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius-sm) var(--radius-md) var(--radius-md) var(--radius-sm);
 }
 
 .admin-sidebar-footer {
@@ -134,7 +148,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--gold-soft);
+    color: var(--white-soft);
     font-size: 0.85rem;
     font-weight: 500;
     text-decoration: none;
