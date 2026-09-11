@@ -527,7 +527,7 @@ $contactMessage = $_GET['message'] ?? null;
                     </svg>
                 </a>
 
-    z        </div>
+            </div>
 
         </div>
 
