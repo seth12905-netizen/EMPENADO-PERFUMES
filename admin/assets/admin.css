@@ -373,6 +373,9 @@
 
 .admin-form .btn {
     align-self: flex-start;
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
 }
 
 .admin-inline-form {
@@ -433,6 +436,10 @@
 }
 
 .admin-row-actions form {
+    margin-left: var(--sp-2);
+}
+
+.admin-row-actions .admin-muted {
     margin-left: var(--sp-2);
 }
 
