@@ -70,7 +70,7 @@ require __DIR__ . '/includes/header.php';
     <section class="admin-panel">
         <div class="admin-panel-head">
             <h2>Recent Orders</h2>
-            <a href="orders.php" class="admin-link">View all &rarr;</a>
+            <a href="orders.php" class="admin-link">View all</a>
         </div>
 
         <?php if (empty($recentOrders)): ?>
@@ -104,7 +104,7 @@ require __DIR__ . '/includes/header.php';
     <section class="admin-panel">
         <div class="admin-panel-head">
             <h2>Recent Messages</h2>
-            <a href="messages.php" class="admin-link">View all &rarr;</a>
+            <a href="messages.php" class="admin-link">View all</a>
         </div>
 
         <?php if (empty($recentMessages)): ?>
