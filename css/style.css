@@ -1497,22 +1497,27 @@ footer {
 }
 
 .form-alert {
-    font-size: 13px;
+    font-size: 12px;
     padding: 10px 14px;
+    line-height: 1.4;
     border-radius: var(--radius-sm);
     text-align: center;
+    max-width: 320px;
+    margin: 0 auto 12px;
 }
 
 .form-alert-error {
     background: rgba(200, 60, 60, 0.12);
     border: 1px solid rgba(200, 60, 60, 0.35);
-    color: #E89B9B;
+    color: #B23A3A;
+    font-weight: 600;
 }
 
 .form-alert-success {
-    background: rgba(70, 160, 100, 0.12);
-    border: 1px solid rgba(70, 160, 100, 0.35);
-    color: #9BE8B4;
+    background: rgba(70, 160, 100, 0.14);
+    border: 1px solid rgba(70, 160, 100, 0.4);
+    color: #1F7A45;
+    font-weight: 600;
 }
 
 .account-table {
