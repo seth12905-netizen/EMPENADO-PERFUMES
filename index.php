@@ -507,7 +507,7 @@ $contactMessage = $_GET['message'] ?? null;
         <div class="footer-bottom">
 
             <p>
-                &copy; <span id="year"></span> Empenado. All rights reserved.
+                &copy; <span id="year"></span> Empenado Perfumes. All rights reserved.
             </p>
 
 
