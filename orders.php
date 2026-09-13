@@ -12,7 +12,7 @@ try {
     $pdo = getConnection();
 
     $orderStmt = $pdo->prepare(
-        "SELECT id, total, status, created_at
+        "SELECT id, total, payment_method, status, created_at
          FROM orders
          WHERE user_id = :user_id
          ORDER BY created_at DESC"
@@ -31,6 +31,12 @@ try {
             $itemsByOrder[$item['order_id']][] = $item;
         }
     }
+
+    $paymentMethodLabels = [
+        'cod'   => 'Cash on Delivery',
+        'gcash' => 'GCash',
+        'card'  => 'Credit / Debit Card',
+    ];
 } catch (PDOException $e) {
     header('Location: account.php?status=error&message=' . urlencode('Something went wrong loading your orders. Please try again.'));
     exit;
@@ -74,6 +80,7 @@ try {
                                 <div>
                                     <strong>Order #<?= (int) $order['id'] ?></strong>
                                     <span class="order-meta"><?= htmlspecialchars(date('M j, Y g:i A', strtotime($order['created_at']))) ?></span>
+                                    <span class="order-meta">· <?= htmlspecialchars($paymentMethodLabels[$order['payment_method']] ?? ucfirst($order['payment_method'])) ?></span>
                                 </div>
                                 <span class="status-pill status-<?= htmlspecialchars($order['status']) ?>"><?= htmlspecialchars(ucfirst($order['status'])) ?></span>
                             </div>

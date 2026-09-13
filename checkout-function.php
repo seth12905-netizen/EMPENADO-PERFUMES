@@ -20,6 +20,12 @@ $raw   = file_get_contents('php://input');
 $input = json_decode($raw, true);
 $items = $input['items'] ?? [];
 
+$validPaymentMethods = ['cod', 'gcash', 'card'];
+$paymentMethod = $input['payment_method'] ?? 'cod';
+if (!in_array($paymentMethod, $validPaymentMethods, true)) {
+    $paymentMethod = 'cod';
+}
+
 if (!is_array($items) || empty($items)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Your cart is empty.']);
@@ -103,10 +109,11 @@ try {
     $pdo->beginTransaction();
 
     $orderStmt = $pdo->prepare(
-        "INSERT INTO orders (user_id, total, status) VALUES (:user_id, :total, 'pending')"
+        "INSERT INTO orders (user_id, total, payment_method, status) VALUES (:user_id, :total, :payment_method, 'pending')"
     );
     $orderStmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
     $orderStmt->bindValue(':total', $total);
+    $orderStmt->bindValue(':payment_method', $paymentMethod);
     $orderStmt->execute();
 
     $orderId = (int) $pdo->lastInsertId();

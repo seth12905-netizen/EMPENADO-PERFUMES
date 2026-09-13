@@ -34,6 +34,10 @@ ALTER TABLE messages
 ALTER TABLE collections
     ADD COLUMN IF NOT EXISTS stock INT NOT NULL DEFAULT 0 AFTER product_image;
 
+-- Record how each order was paid for.
+ALTER TABLE orders
+    ADD COLUMN IF NOT EXISTS payment_method ENUM('cod', 'gcash', 'card') NOT NULL DEFAULT 'cod' AFTER total;
+
 -- Shop products used to be hardcoded in js/script.js. This
 -- table lets the admin dashboard manage them like Collections.
 CREATE TABLE IF NOT EXISTS products (

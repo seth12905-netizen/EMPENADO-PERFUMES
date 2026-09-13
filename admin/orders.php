@@ -6,8 +6,13 @@ $activeNav = 'orders';
 
 $statusFilter = $_GET['filter'] ?? 'all';
 $validStatuses = ['pending', 'processing', 'shipped', 'completed', 'cancelled'];
+$paymentMethodLabels = [
+    'cod'   => 'Cash on Delivery',
+    'gcash' => 'GCash',
+    'card'  => 'Card',
+];
 
-$sql = "SELECT o.id, o.total, o.status, o.created_at, u.username, u.email
+$sql = "SELECT o.id, o.total, o.payment_method, o.status, o.created_at, u.username, u.email
         FROM orders o
         JOIN users u ON u.id = o.user_id";
 
@@ -61,6 +66,7 @@ require __DIR__ . '/includes/header.php';
                         <th>Customer</th>
                         <th>Items</th>
                         <th>Total</th>
+                        <th>Payment</th>
                         <th>Date</th>
                         <th>Status</th>
                     </tr>
@@ -78,6 +84,7 @@ require __DIR__ . '/includes/header.php';
                                 </ul>
                             </td>
                             <td>₱<?= number_format((float) $order['total'], 2) ?></td>
+                            <td><?= htmlspecialchars($paymentMethodLabels[$order['payment_method']] ?? ucfirst($order['payment_method'])) ?></td>
                             <td><?= htmlspecialchars(date('M j, Y g:i A', strtotime($order['created_at']))) ?></td>
                             <td>
                                 <form method="POST" action="order-status.php" class="admin-inline-form">

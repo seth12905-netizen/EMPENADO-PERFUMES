@@ -692,6 +692,9 @@ if (cartCheckoutBtn) {
       return;
     }
 
+    const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+    const paymentMethod = selectedPayment ? selectedPayment.value : "cod";
+
     const originalText = cartCheckoutBtn.textContent;
     cartCheckoutBtn.disabled = true;
     cartCheckoutBtn.textContent = "Placing order...";
@@ -700,7 +703,7 @@ if (cartCheckoutBtn) {
       const res = await fetch("checkout-function.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: CART, total: cartTotal() })
+        body: JSON.stringify({ items: CART, total: cartTotal(), payment_method: paymentMethod })
       });
 
       const data = await res.json();

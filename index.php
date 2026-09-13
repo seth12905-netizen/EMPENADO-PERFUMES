@@ -594,6 +594,26 @@ $contactMessage = $_GET['message'] ?? null;
         </div>
 
         <div class="cart-modal-footer">
+
+            <div class="payment-method-group">
+                <span class="payment-method-label">Payment Method</span>
+
+                <label class="payment-method-option">
+                    <input type="radio" name="paymentMethod" value="cod" checked>
+                    <span>Cash on Delivery</span>
+                </label>
+
+                <label class="payment-method-option">
+                    <input type="radio" name="paymentMethod" value="gcash">
+                    <span>GCash</span>
+                </label>
+
+                <label class="payment-method-option">
+                    <input type="radio" name="paymentMethod" value="card">
+                    <span>Credit / Debit Card</span>
+                </label>
+            </div>
+
             <div class="cart-total-row">
                 <span>Total</span>
                 <span id="cartTotal">₱0</span>
