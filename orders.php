@@ -12,7 +12,7 @@ try {
     $pdo = getConnection();
 
     $orderStmt = $pdo->prepare(
-        "SELECT id, total, payment_method, status, created_at
+        "SELECT id, total, payment_method, payment_reference, status, created_at
          FROM orders
          WHERE user_id = :user_id
          ORDER BY created_at DESC"
@@ -81,6 +81,9 @@ try {
                                     <strong>Order #<?= (int) $order['id'] ?></strong>
                                     <span class="order-meta"><?= htmlspecialchars(date('M j, Y g:i A', strtotime($order['created_at']))) ?></span>
                                     <span class="order-meta">· <?= htmlspecialchars($paymentMethodLabels[$order['payment_method']] ?? ucfirst($order['payment_method'])) ?></span>
+                                    <?php if (!empty($order['payment_reference'])): ?>
+                                        <span class="order-meta">· Ref: <?= htmlspecialchars($order['payment_reference']) ?></span>
+                                    <?php endif; ?>
                                 </div>
                                 <span class="status-pill status-<?= htmlspecialchars($order['status']) ?>"><?= htmlspecialchars(ucfirst($order['status'])) ?></span>
                             </div>

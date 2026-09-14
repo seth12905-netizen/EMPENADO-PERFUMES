@@ -37,6 +37,34 @@ function parsePeso($value): float
     return (float) preg_replace('/[^0-9.]/', '', (string) $value);
 }
 
+// Builds a GCash-style reference number, e.g. GC-20260913-4F8B2C.
+// This is a stand-in reference for the order (not a real GCash
+// transaction ID from GCash's own systems) so the customer has
+// something to write on their payment / quote when they send
+// money, and staff have something to match it against.
+function generatePaymentReference(PDO $pdo, string $paymentMethod): ?string
+{
+    if ($paymentMethod !== 'gcash') {
+        return null;
+    }
+
+    $prefix = 'GC';
+
+    do {
+        $reference = sprintf(
+            '%s-%s-%s',
+            $prefix,
+            date('Ymd'),
+            strtoupper(bin2hex(random_bytes(3)))
+        );
+
+        $check = $pdo->prepare('SELECT 1 FROM orders WHERE payment_reference = :ref');
+        $check->execute([':ref' => $reference]);
+    } while ($check->fetchColumn() !== false); // extremely unlikely, but guarantee uniqueness
+
+    return $reference;
+}
+
 try {
     $pdo = getConnection();
 
@@ -108,12 +136,21 @@ try {
 
     $pdo->beginTransaction();
 
+    // Only GCash orders get an automated reference number.
+    $paymentReference = generatePaymentReference($pdo, $paymentMethod);
+
     $orderStmt = $pdo->prepare(
-        "INSERT INTO orders (user_id, total, payment_method, status) VALUES (:user_id, :total, :payment_method, 'pending')"
+        "INSERT INTO orders (user_id, total, payment_method, payment_reference, status)
+         VALUES (:user_id, :total, :payment_method, :payment_reference, 'pending')"
     );
     $orderStmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
     $orderStmt->bindValue(':total', $total);
     $orderStmt->bindValue(':payment_method', $paymentMethod);
+    $orderStmt->bindValue(
+        ':payment_reference',
+        $paymentReference,
+        $paymentReference === null ? PDO::PARAM_NULL : PDO::PARAM_STR
+    );
     $orderStmt->execute();
 
     $orderId = (int) $pdo->lastInsertId();
@@ -153,11 +190,18 @@ try {
 
     $pdo->commit();
 
+    $message = "Order #{$orderId} placed! Thank you for shopping with Empenado.";
+    if ($paymentReference !== null) {
+        $message .= " Your GCash reference number is {$paymentReference} — please include it in your payment note.";
+    }
+
     echo json_encode([
-        'success'  => true,
-        'order_id' => $orderId,
-        'total'    => $total,
-        'message'  => "Order #{$orderId} placed! Thank you for shopping with Empenado.",
+        'success'           => true,
+        'order_id'          => $orderId,
+        'total'             => $total,
+        'payment_method'    => $paymentMethod,
+        'payment_reference' => $paymentReference,
+        'message'           => $message,
     ]);
 } catch (RuntimeException $e) {
     if (isset($pdo) && $pdo->inTransaction()) {

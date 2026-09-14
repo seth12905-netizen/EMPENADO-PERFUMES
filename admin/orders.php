@@ -12,7 +12,7 @@ $paymentMethodLabels = [
     'card'  => 'Card',
 ];
 
-$sql = "SELECT o.id, o.total, o.payment_method, o.status, o.created_at, u.username, u.email
+$sql = "SELECT o.id, o.total, o.payment_method, o.payment_reference, o.status, o.created_at, u.username, u.email
         FROM orders o
         JOIN users u ON u.id = o.user_id";
 
@@ -67,6 +67,7 @@ require __DIR__ . '/includes/header.php';
                         <th>Items</th>
                         <th>Total</th>
                         <th>Payment</th>
+                        <th>Reference</th>
                         <th>Date</th>
                         <th>Status</th>
                     </tr>
@@ -85,6 +86,7 @@ require __DIR__ . '/includes/header.php';
                             </td>
                             <td>₱<?= number_format((float) $order['total'], 2) ?></td>
                             <td><?= htmlspecialchars($paymentMethodLabels[$order['payment_method']] ?? ucfirst($order['payment_method'])) ?></td>
+                            <td><?= !empty($order['payment_reference']) ? htmlspecialchars($order['payment_reference']) : '<span class="admin-muted">—</span>' ?></td>
                             <td><?= htmlspecialchars(date('M j, Y g:i A', strtotime($order['created_at']))) ?></td>
                             <td>
                                 <form method="POST" action="order-status.php" class="admin-inline-form">

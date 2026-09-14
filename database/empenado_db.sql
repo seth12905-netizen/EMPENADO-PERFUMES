@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS orders (
     user_id         INT           NOT NULL,
     total           DECIMAL(10,2) NOT NULL,
     payment_method  ENUM('cod', 'gcash', 'card') NOT NULL DEFAULT 'cod',
+    payment_reference VARCHAR(30) NULL,
     status          VARCHAR(20)   NOT NULL DEFAULT 'pending',
     created_at      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)

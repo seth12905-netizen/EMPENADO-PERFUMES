@@ -620,17 +620,22 @@ function updateCartUI() {
 
 let toastTimer = null;
 
-function showToast(message) {
+function showToast(message, duration) {
   const toast = document.getElementById("toast");
   if (!toast) return;
 
   toast.textContent = message;
   toast.classList.add("is-visible");
 
+  // Longer messages (e.g. a GCash reference number the shopper
+  // needs to copy down) get more time on screen than a short
+  // one-liner like "Removed from cart".
+  const shownFor = duration || Math.min(6000, Math.max(2200, message.length * 60));
+
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     toast.classList.remove("is-visible");
-  }, 2200);
+  }, shownFor);
 }
 
 function openCartModal() {
