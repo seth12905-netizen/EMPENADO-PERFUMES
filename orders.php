@@ -101,6 +101,8 @@ try {
                                 <span>Total</span>
                                 <span>₱<?= number_format((float) $order['total'], 2) ?></span>
                             </div>
+
+                            <a href="receipt.php?id=<?= (int) $order['id'] ?>" class="order-receipt-link">View Receipt</a>
                         </div>
                     <?php endforeach; ?>
                 </div>

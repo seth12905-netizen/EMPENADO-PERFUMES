@@ -70,6 +70,7 @@ require __DIR__ . '/includes/header.php';
                         <th>Reference</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Receipt</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,6 +100,9 @@ require __DIR__ . '/includes/header.php';
                                         <?php endforeach; ?>
                                     </select>
                                 </form>
+                            </td>
+                            <td>
+                                <a href="receipt.php?id=<?= (int) $order['id'] ?>" class="admin-link" target="_blank" rel="noopener">View</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
