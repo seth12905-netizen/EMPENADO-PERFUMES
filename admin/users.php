@@ -46,14 +46,6 @@ require __DIR__ . '/includes/header.php';
                         <td><?= htmlspecialchars(date('M j, Y', strtotime($u['created_at']))) ?></td>
                         <td class="admin-row-actions">
                             <?php if ((int) $u['id'] !== (int) $_SESSION['user_id']): ?>
-                                <form method="POST" action="user-role.php" class="admin-inline-form">
-                                    <?= csrf_field() ?>
-                                    <input type="hidden" name="id" value="<?= (int) $u['id'] ?>">
-                                    <input type="hidden" name="role" value="<?= $u['role'] === 'admin' ? 'customer' : 'admin' ?>">
-                                    <button type="submit" class="admin-link">
-                                        <?= $u['role'] === 'admin' ? 'Demote to Customer' : 'Promote to Admin' ?>
-                                    </button>
-                                </form>
                                 <form method="POST" action="user-delete.php" onsubmit="return confirm('Delete this user? This cannot be undone.');">
                                     <?= csrf_field() ?>
                                     <input type="hidden" name="id" value="<?= (int) $u['id'] ?>">
